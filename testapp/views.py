@@ -19,8 +19,8 @@ def get_testdata_all(request):
         test_data = {
             "id" : test.pk,
             "title" : test.title,
-            "content" : test.content,
-            "created_at" : test.created_at,
+            "contents" : test.contents,
+            "created_at" : test.created_at
         }        
 
         testdata_list.append(test_data) 
@@ -28,47 +28,44 @@ def get_testdata_all(request):
     return JsonResponse({
         'status' : 200,
         'message' : '게시글 조회 성공',
-        'data' : testdata_list,
+        'result' : testdata_list
     })
     
 @require_http_methods(["GET"])
-def get_testdata(request, id):
-    testdata_all = Test.objects.filter(id = id)
+def get_testdata(request, title):
+    testdata = get_object_or_404(Test, title = title)
     
-    testdata_json_list = []
+    testdata_json = {
+        "id" : testdata.pk,
+        "title" : testdata.title,
+        "contents" : testdata.contents,
+        "created_at" : testdata.created_at      
+    }
     
-    for testdata in  testdata_all:
-        testdata_json = {
-            "title" : testdata.title,
-            "content" : testdata.content
-        }
-        
-        testdata_json_list.append(testdata_json)
-        
     return JsonResponse({
-        'status' : 200,
-        "message" : '게시글 조회 성공',
-        'data' : testdata_json_list
-    })
+            'status' : 200,
+            'message' : '게시글 조회 성공',
+            'result' : testdata_json
+        })
 
-@require_http_methods(['POST'])    
+@require_http_methods(["POST"])    
 def create_testdata(request):
     body = json.loads(request.body.decode('utf-8'))
     
     new_testdata = Test.objects.create(
            title = body['title'],
-           content = body['content'],
+           contents = body['contents'], 
        )
     
     new_testdata_json = {
            "id" : new_testdata.id,
            "titie" : new_testdata.title,
-           "content" : new_testdata.content,
-           "created_at" : new_testdata.created_at,
+           "contents" : new_testdata.contents,
+           "created_at" : new_testdata.created_at
        }
     
     return JsonResponse({
         'status' : 200,
         'message' : '게시글 생성 성공',
-        'data' : new_testdata_json
+        'result' : new_testdata_json
     })
