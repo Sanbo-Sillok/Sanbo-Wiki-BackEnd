@@ -16,7 +16,7 @@ DATABASES = {
     }
 }
 
-secret_file = os.path.join(BASE_DIR, 'Sanbo-Wiki-Backend/secrets.json') # secrets.json 파일 위치를 명시
+secret_file = os.path.join(BASE_DIR, 'Sanbo-Wiki-BackEnd/secrets.json') # secrets.json 파일 위치를 명시
 
 with open(secret_file) as f:
     secrets = json.loads(f.read())
