@@ -69,3 +69,10 @@ def create_testdata(request):
         'message' : '게시글 생성 성공',
         'result' : new_testdata_json
     })
+    
+def handler404(request, exception):
+    return JsonResponse({
+        'status' : 404,
+        'message' : '404 Not Found Error',
+        'result' : None
+    })
