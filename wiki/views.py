@@ -22,7 +22,7 @@ def create_post(request):
     
     new_post_json = {
            "id" : new_post.id,
-           "titie" : new_post.title,
+           "title" : new_post.title,
            "contents" : new_post.contents,
            "created_at" : new_post.created_at
        }
