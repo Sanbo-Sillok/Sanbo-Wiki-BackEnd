@@ -8,6 +8,9 @@ from .models import Post
 import datetime as dt
 
 # Create your views here.
+
+# CRUD 메서드
+
 @require_http_methods(["POST"])    
 def create_post(request):
     body = json.loads(request.body.decode('utf-8'))
@@ -30,36 +33,35 @@ def create_post(request):
         'result' : new_post_json
     })
     
-@require_http_methods(["GET"])
-def get_post(reqeust, title):
+@require_http_methods(["GET", "DELETE"])
+def get_or_delete_post(reqeust, title):
     post = get_object_or_404(Post, title = title)
     
-    post_json = {
-        "id" : post.pk,
-        "title" : post.title,
-        "contents" : post.contents,
-        "created_at" : post.created_at      
-    }
+    if reqeust.method == "GET":
     
-    return JsonResponse({
-            'status' : 200,
-            'message' : '게시글 조회 성공',
-            'result' : post_json
-        })
-    
-@require_http_methods(["DELETE"])
-def delete_post(request, title):
-    
-    delete_post = get_object_or_404(Post, title=title)
-    
-    delete_post.delete()
-    
-    return JsonResponse({
-        'status' : 200,
-        'message' : '게시글 삭제 성공',
-        'data' : None
-    })
+        post_json = {
+            "id" : post.pk,
+            "title" : post.title,
+            "contents" : post.contents,
+            "created_at" : post.created_at      
+        }
+
+        return JsonResponse({
+                'status' : 200,
+                'message' : '게시글 조회 성공',
+                'result' : post_json
+            })
+    elif reqeust.method == "DELETE":
         
+        post.delete()
+    
+        return JsonResponse({
+            'status' : 200,
+            'message' : '게시글 삭제 성공',
+            'data' : None
+        })        
+    else:
+        return None
 
 @require_http_methods(["PATCH"])
 def edit_post(request, title):
