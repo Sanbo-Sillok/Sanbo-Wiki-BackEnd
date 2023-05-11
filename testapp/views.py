@@ -59,7 +59,7 @@ def create_testdata(request):
     
     new_testdata_json = {
            "id" : new_testdata.id,
-           "titie" : new_testdata.title,
+           "title" : new_testdata.title,
            "contents" : new_testdata.contents,
            "created_at" : new_testdata.created_at
        }
@@ -70,9 +70,3 @@ def create_testdata(request):
         'result' : new_testdata_json
     })
     
-def handler404(request, exception):
-    return JsonResponse({
-        'status' : 404,
-        'message' : '404 Not Found Error',
-        'result' : None
-    })
