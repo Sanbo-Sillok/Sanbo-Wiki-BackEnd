@@ -58,7 +58,7 @@ def get_or_delete_post(reqeust, title):
         return JsonResponse({
             'status' : 200,
             'message' : '게시글 삭제 성공',
-            'data' : None
+            'result' : None
         })        
     else:
         return None
@@ -82,7 +82,7 @@ def edit_post(request, title):
     return JsonResponse({
         'status' : 200,
         'message' : '게시글 수정 성공',
-        'data' : update_post_json
+        'result' : update_post_json
     })
     
 # 오류 처리
