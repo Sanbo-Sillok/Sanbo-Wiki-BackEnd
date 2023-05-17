@@ -33,11 +33,11 @@ def create_post(request):
         'result' : new_post_json
     })
     
-@require_http_methods(["GET", "DELETE"])
-def get_or_delete_post(reqeust, title):
+@require_http_methods(["GET", "DELETE", "PATCH"])
+def get_or_delete_or_edit_post(request, title):
     post = get_object_or_404(Post, title = title)
     
-    if reqeust.method == "GET":
+    if request.method == "GET":
     
         post_json = {
             "id" : post.pk,
@@ -51,7 +51,7 @@ def get_or_delete_post(reqeust, title):
                 'message' : '게시글 조회 성공',
                 'result' : post_json
             })
-    elif reqeust.method == "DELETE":
+    elif request.method == "DELETE":
         
         post.delete()
     
@@ -59,31 +59,30 @@ def get_or_delete_post(reqeust, title):
             'status' : 200,
             'message' : '게시글 삭제 성공',
             'result' : None
-        })        
+        })
+    elif request.method == "PATCH":
+        body = json.loads(request.body.decode('utf-8'))
+        update_post = get_object_or_404(Post, title = title)
+    
+        update_post.contents = body['contents']
+            
+        update_post.save()
+        
+        update_post_json = {
+            "id" : update_post.id,
+            "title" : update_post.title,
+            "contents" : update_post.contents,
+            "created_at" : update_post.created_at
+        }
+            
+        return JsonResponse({
+            'status' : 200,
+            'message' : '게시글 수정 성공',
+            'result' : update_post_json
+        })                
     else:
         return None
-
-@require_http_methods(["PATCH"])
-def edit_post(request, title):
-    body = json.loads(request.body.decode('utf-8'))
-    update_post = get_object_or_404(Post, title = title)
-
-    update_post.contents = body['contents']
-        
-    update_post.save()
     
-    update_post_json = {
-        "id" : update_post.id,
-        "title" : update_post.title,
-        "contents" : update_post.contents,
-        "created_at" : update_post.created_at
-    }
-        
-    return JsonResponse({
-        'status' : 200,
-        'message' : '게시글 수정 성공',
-        'result' : update_post_json
-    })
     
 # 오류 처리
     
