@@ -5,7 +5,6 @@ from django.views.decorators.http import require_http_methods
 from django.core import serializers
 import json
 from .models import Post
-import datetime as dt
 
 # Create your views here.
 
@@ -35,8 +34,8 @@ def create_post(request):
     
 @require_http_methods(["GET", "DELETE", "PATCH"])
 def get_or_delete_or_edit_post(request, title):
-    post = get_object_or_404(Post, title = title)
-    
+    post = get_object_or_404(Post, title = title)       
+
     if request.method == "GET":
     
         post_json = {
