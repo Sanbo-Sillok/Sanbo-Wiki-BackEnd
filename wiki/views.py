@@ -82,7 +82,19 @@ def get_or_delete_or_edit_post(request, title):
     else:
         return None
     
+def get_all_title(request):
+    posts = Post.objects.all()
+    title_list = []
     
+    for post in posts:
+        title = post.title
+        title_list.append(title)
+    
+    return JsonResponse({
+        "status" : 200,
+        "message" : "타이틀 조회 성공",
+        "result" : title_list
+    })    
 # 오류 처리
     
 def handler404(request, exception):

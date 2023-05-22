@@ -4,4 +4,5 @@ from wiki.views import *
 urlpatterns = [
     path('', create_post, name='create_post'),
     path('<str:title>', get_or_delete_or_edit_post,  name='get_or_delete_or_edit_post'), 
+    path('w/all', get_all_title, name='get_all_title'),
 ]
