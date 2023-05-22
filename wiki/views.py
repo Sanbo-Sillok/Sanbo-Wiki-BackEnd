@@ -81,7 +81,8 @@ def get_or_delete_or_edit_post(request, title):
         })                
     else:
         return None
-    
+  
+@require_http_methods(["GET"])    
 def get_all_title(request):
     posts = Post.objects.all()
     title_list = []
