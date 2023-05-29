@@ -39,30 +39,53 @@ class PostList(APIView):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse({
+                'status' : 200,
+                'message' : '생성 성공',
+                'result' : serializer.data
+            })
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({
+                'status' : 400,
+                'message' : '유효하지 않은 데이터',
+                'result' : None
+            })
 
 class PostDetail(APIView):
     def get(self, request, title):
         post = get_object_or_404(Post, title = title)
         serializers = PostSerializer(post)
-        return Response(serializers.data)
+        return JsonResponse({
+            'status' : 200,
+            'message' : '조회 성공',
+            'result' : serializers.data
+        })
     
     def patch(self, request, title):
         post = get_object_or_404(Post, title = title)
         serializers = PostSerializer(post, data=request.data) 
         if serializers.is_valid():
             serializers.save()
-            return Response(serializers.data, status=status.HTTP_201_CREATED)
+            return JsonResponse({
+            'status' : 200,
+            'message' : '수정 성공',
+            'result' : serializers.data
+        })
         else:
-            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({
+                'status' : 400,
+                'message' : '유효하지 않은 데이터',
+                'result' : None
+            })
     
     def delete(self, request, title):
         post = get_object_or_404(Post, title = title)
         post.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
+        return JsonResponse({
+            'status' : 200,
+            'message' : '삭제 성공',
+            'result' : None
+        })
 # 오류 처리
     
 def handler404(request, exception):
