@@ -63,6 +63,7 @@ class PostDetail(APIView):
     
     def patch(self, request, title):
         post = get_object_or_404(Post, title = title)
+        request.data["title"] = title
         serializers = PostSerializer(post, data=request.data) 
         if serializers.is_valid():
             serializers.save()
