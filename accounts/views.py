@@ -58,7 +58,7 @@ class AuthView(APIView):
                     "member" : {
                         "id" : member.id,
                         "email" : member.email,
-                        "age" : member.age,
+                        "name" : member.name,
                     },
                     "message" : "login success",
                     "token" : {

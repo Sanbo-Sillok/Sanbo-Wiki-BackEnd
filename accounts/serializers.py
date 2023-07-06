@@ -6,11 +6,11 @@ class ResisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required = True)
     password = serializers.CharField(required = True)
     email = serializers.CharField(required = True)
-    age = serializers.IntegerField(required = True)
+    name = serializers.CharField(required = True)
     
     class Meta:
         model = Member
-        fields = ['id', 'username', 'password', 'email', 'age']
+        fields = ['id', 'username', 'password', 'email', 'name']
         
     # 회원 정보 저장    
     def save(self, request):
@@ -18,7 +18,7 @@ class ResisterSerializer(serializers.ModelSerializer):
         member = Member.objects.create(
             username = self.validated_data['username'],
             email = self.validated_data['email'],
-            age = self.validated_data['age'],
+            name = self.validated_data['name'],
         )
         
         # password는 별도로 암호화
