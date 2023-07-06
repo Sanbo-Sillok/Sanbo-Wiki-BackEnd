@@ -22,5 +22,6 @@ handler404 = 'wiki.views.handler404'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', include('testapp.urls')),
-    path('wiki/', include('wiki.urls'))
+    path('wiki/', include('wiki.urls')),
+    path('auth/',include('accounts.urls')),
 ]
