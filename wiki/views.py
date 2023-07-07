@@ -13,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 
+from rest_framework.permissions import IsAuthenticated
+
 # Create your views here.
 
 # CRUD 메서드 (FBV)
@@ -52,6 +54,9 @@ class PostList(APIView):
             })
 
 class PostDetail(APIView):
+    
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request, title):
         post = get_object_or_404(Post, title = title)
         serializers = PostSerializer(post)
