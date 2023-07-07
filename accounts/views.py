@@ -68,7 +68,7 @@ class AuthView(APIView):
                 },
                 status = status.HTTP_200_OK
             )
-            res.set_cookie("access-token", access_token, httponly=True)
+            res.set_cookie("access-token", access_token)
             res.set_cookie("refresh-token", refresh_token, httponly=True)
             return res
         else:

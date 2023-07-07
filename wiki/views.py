@@ -13,9 +13,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import *
 
 # Create your views here.
+
+# permission 클래스
 
 # CRUD 메서드 (FBV)
   
@@ -92,6 +94,7 @@ class PostDetail(APIView):
             'message' : '삭제 성공',
             'result' : None
         })
+        
 # 오류 처리
     
 def handler404(request, exception):
