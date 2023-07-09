@@ -39,6 +39,9 @@ def get_all_title(request):
 # CBV
 
 class PostList(APIView):
+    
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request, format=None):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():

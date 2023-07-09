@@ -10,9 +10,6 @@ from django.http import Http404
 
 # JWT
 from rest_framework_simplejwt.serializers import RefreshToken
-    
-# 인가
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 # Create your views here.
 class RegisterView(APIView):
