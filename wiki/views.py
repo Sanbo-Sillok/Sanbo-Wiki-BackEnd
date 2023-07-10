@@ -15,9 +15,9 @@ from django.http import Http404
 
 from rest_framework.permissions import *
 
-# Create your views here.
+from config.permissions import IsProtected
 
-# permission 클래스
+# Create your views here.
 
 # CRUD 메서드 (FBV)
   
@@ -60,7 +60,12 @@ class PostList(APIView):
 
 class PostDetail(APIView):
     
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsProtected]
+    
+    def get_object(self, title):
+        post = Post.objects.get(title=title)
+        self.check_object_permissions(self.request, post)
+        return post
     
     def get(self, request, title):
         post = get_object_or_404(Post, title = title)
