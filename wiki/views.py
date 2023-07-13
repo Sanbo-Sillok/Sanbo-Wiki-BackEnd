@@ -68,7 +68,7 @@ class PostDetail(APIView):
         return post
     
     def get(self, request, title):
-        post = get_object_or_404(Post, title = title)
+        post = self.get_object(Post, title = title)
         serializers = PostSerializer(post)
         return JsonResponse({
             'status' : 200,
@@ -77,7 +77,7 @@ class PostDetail(APIView):
         })
     
     def patch(self, request, title):
-        post = get_object_or_404(Post, title = title)
+        post = self.get_object(Post, title = title)
         request.data["title"] = title
         serializers = PostSerializer(post, data=request.data) 
         if serializers.is_valid():
@@ -95,7 +95,7 @@ class PostDetail(APIView):
             })
     
     def delete(self, request, title):
-        post = get_object_or_404(Post, title = title)
+        post = self.get_object(Post, title = title)
         post.delete()
         return JsonResponse({
             'status' : 200,
