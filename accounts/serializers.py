@@ -30,11 +30,8 @@ class ResisterSerializer(serializers.ModelSerializer):
     
     # 중복 회원 가입 검사
     def validate(self, data):
-        email = data.get("email", None)
         username = data.get("username", None)
         
-        if Member.objects.filter(email = email).exists():
-            raise serializers.ValidationError('email already exists')
         if Member.objects.filter(username = username).exists():
             raise serializers.ValidationError('username already exists')
         
