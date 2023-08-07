@@ -54,8 +54,6 @@ class AuthView(APIView):
                 {
                     "member" : {
                         "id" : member.id,
-                        "email" : member.email,
-                        "name" : member.name,
                     },
                     "message" : "login success",
                     "token" : {
@@ -65,8 +63,8 @@ class AuthView(APIView):
                 },
                 status = status.HTTP_200_OK
             )
-            res.set_cookie("access-token", access_token, secure=True)
-            res.set_cookie("refresh-token", refresh_token, secure=True, httponly=True)
+            res.set_cookie("access-token", access_token)
+            res.set_cookie("refresh-token", refresh_token, httponly=True)
             return res
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
