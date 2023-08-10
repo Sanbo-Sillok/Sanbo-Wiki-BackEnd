@@ -5,8 +5,6 @@ from rest_framework_simplejwt.serializers import RefreshToken
 class ResisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required = True)
     password = serializers.CharField(required = True)
-    email = serializers.CharField(required = True)
-    name = serializers.CharField(required = True)
     
     class Meta:
         model = Member
