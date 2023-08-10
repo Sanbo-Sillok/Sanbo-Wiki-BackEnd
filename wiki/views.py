@@ -18,25 +18,24 @@ from rest_framework.permissions import *
 from config.permissions import IsProtected
 
 # Create your views here.
+    
+class get_all_title(APIView):
+    
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        posts = Post.objects.all()
+        title_list = []
 
-# CRUD 메서드 (FBV)
-  
-@require_http_methods(["GET"])    
-def get_all_title(request):
-    posts = Post.objects.all()
-    title_list = []
-    
-    for post in posts:
-        title = post.title
-        title_list.append(title)
-    
-    return JsonResponse({
-        "status" : 200,
-        "message" : "타이틀 조회 성공",
-        "result" : title_list
-    })    
-    
-# CBV
+        for post in posts:
+            title = post.title
+            title_list.append(title)
+
+        return JsonResponse({
+            "status" : 200,
+            "message" : "타이틀 조회 성공",
+            "result" : title_list
+        })    
 
 class PostList(APIView):
     
