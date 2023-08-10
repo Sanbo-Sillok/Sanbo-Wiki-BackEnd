@@ -63,8 +63,6 @@ class AuthView(APIView):
                 },
                 status = status.HTTP_200_OK
             )
-            res.set_cookie("access-token", access_token)
-            res.set_cookie("refresh-token", refresh_token, httponly=True)
             return res
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -73,7 +71,4 @@ class AuthView(APIView):
         res = Response({
             "message" : "logout success"
         }, status=status.HTTP_202_ACCEPTED)
-        
-        res.delete_cookie("access-token")
-        res.delete_cookie("refresh-token")
         return res
