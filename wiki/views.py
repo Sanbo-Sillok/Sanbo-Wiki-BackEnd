@@ -59,10 +59,10 @@ class PostList(APIView):
 
 class PostDetail(APIView):
     
-    permission_classes = [IsAuthenticated, IsProtected]
+    # permission_classes = [IsAuthenticated, IsProtected]
     
     def get_object(self, title):
-        post = Post.objects.get(title=title)
+        post = get_object_or_404(Post, title=title)
         self.check_object_permissions(self.request, post)
         return post
     
