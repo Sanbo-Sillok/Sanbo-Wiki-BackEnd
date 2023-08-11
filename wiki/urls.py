@@ -5,5 +5,5 @@ from wiki.views import *
 urlpatterns = [
     path('', PostList.as_view()),
     path('<str:title>', PostDetail.as_view()),
-    path('w/all', get_all_title, name='get_all_title'),
+    path('w/all', get_all_title.as_view()),
 ]
