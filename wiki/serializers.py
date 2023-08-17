@@ -3,9 +3,10 @@ from .models import *
 
 class PostSerializer(serializers.ModelSerializer):
     contents = serializers.CharField(trim_whitespace=False)
+    
     class Meta:
         model = Post
-        fields = "__all__"  
+        fields = "__all__"
         
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:

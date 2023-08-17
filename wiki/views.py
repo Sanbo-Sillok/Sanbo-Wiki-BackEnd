@@ -73,16 +73,19 @@ class PostList(APIView):
     permission_classes = [IsAuthenticated]
     
     def post(self, request, format=None):
-        serializer = PostSerializer(data=request.data)
         user_id = get_user_from_token(request.META['HTTP_AUTHORIZATION'].split()[1])
         writer = get_object_or_404(Member, id=user_id)
+        request.data["last_modified_by"] = writer.id
+        
+        serializer = PostSerializer(data=request.data)
+        
         if serializer.is_valid():
             serializer.save()
             return JsonResponse({
                 'status' : 200,
                 'message' : '생성 성공',
                 'result' : serializer.data,
-                'wirter' : writer
+                'wirter' : writer.username
             })
         else:
             return JsonResponse({
@@ -112,16 +115,19 @@ class PostDetail(APIView):
     def patch(self, request, title):
         post = self.get_object(title = title)
         request.data["title"] = title
-        serializers = PostSerializer(post, data=request.data)
+        
         user_id = get_user_from_token(request.META['HTTP_AUTHORIZATION'].split()[1])
         writer = get_object_or_404(Member, id=user_id) 
+        request.data["last_modified_by"] = writer.id
+        
+        serializers = PostSerializer(post, data=request.data)
         if serializers.is_valid():
             serializers.save()
             return JsonResponse({
             'status' : 200,
             'message' : '수정 성공',
             'result' : serializers.data,
-            'writer' : writer
+            'writer' : writer.username
         })
         else:
             return JsonResponse({
