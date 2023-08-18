@@ -106,10 +106,16 @@ class PostDetail(APIView):
     def get(self, request, title):
         post = self.get_object(title = title)
         serializers = PostSerializer(post)
+        
+        member = get_object_or_404(Member, id=serializers.data['last_modified_by'])
+        
+        print(member.username)
+        writer = member.username
         return JsonResponse({
             'status' : 200,
             'message' : '조회 성공',
-            'result' : serializers.data
+            'result' : serializers.data,
+            'writer' : writer
         })
     
     def patch(self, request, title):
