@@ -24,8 +24,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME' : 'sanbo_RDS',
         'USER' : 'admin',
-        'PASSWORD' : get_secret('DB_PASSWORD'),
-        'HOST' : get_secret('DB_HOST'),
+        'PASSWORD' : get_secret("DB_PASSWORD"),
+        'HOST' : get_secret("DB_HOST"),
         'PORT' : '3306',
     }
 }

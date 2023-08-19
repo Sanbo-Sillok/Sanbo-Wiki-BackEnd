@@ -181,8 +181,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AWS 권한 설정
-AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
 AWS_REGION = 'ap-northeast-2'
 
 # AWS S3 버킷 이름
