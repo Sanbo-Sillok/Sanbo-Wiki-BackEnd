@@ -25,19 +25,19 @@ pymysql.install_as_MySQLdb()
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-# secret_file = os.path.join(BASE_DIR, 'secrets.json')
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
 
-# with open(secret_file) as f:
-#     secrets = json.loads(f.read())
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
 
-# def get_secret(setting, secrets=secrets):
-#     try:
-#         return secrets[setting]
-#     except KeyError:
-#         error_msg = "Set the {} environment variable".format(setting)
-#         raise ImproperlyConfigured(error_msg)
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
 
 SECRET_KEY = my_settings.SECRET_KEY
 
@@ -180,19 +180,19 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# # AWS 권한 설정
-# AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
-# AWS_REGION = 'ap-northeast-2'
+# AWS 권한 설정
+AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
+AWS_REGION = 'ap-northeast-2'
 
-# # AWS S3 버킷 이름
-# AWS_STORAGE_BUCKET_NAME = 'sanbosillok'
+# AWS S3 버킷 이름
+AWS_STORAGE_BUCKET_NAME = 'sanbosillok'
 
-# # AWS S3 버킷의 URL
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+# AWS S3 버킷의 URL
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
 
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
