@@ -50,6 +50,37 @@ class imageView(APIView):
                 'result' : None
             })
 
+class get_recently_title(APIView):
+    
+    permission_classes = [IsAuthenticated]
+    
+    RECENT_POST_COUNT = 3
+    
+    def get(self, request):
+        posts = Post.objects.all()
+        post_list = []
+        recent_modified_list = []
+
+        for post in posts:
+            title = post.title
+            update_day = post.updated_at
+            post_list.append([title, update_day])
+
+        print(post_list)
+        
+        post_list.sort(key=lambda x : x[1], reverse=True)
+        
+        print(post_list)
+        
+        for i in range(self.RECENT_POST_COUNT):
+            recent_modified_list.append(post_list[i][0])
+            
+        return JsonResponse({
+            "status" : 200,
+            "message" : "최신 수정 페이지 타이틀 조회 성공",
+            "result" : recent_modified_list
+        })    
+
 class get_all_title(APIView):
     
     permission_classes = [IsAuthenticated]
@@ -109,7 +140,6 @@ class PostDetail(APIView):
         
         member = get_object_or_404(Member, id=serializers.data['last_modified_by'])
         
-        print(member.username)
         writer = member.username
         return JsonResponse({
             'status' : 200,

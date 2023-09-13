@@ -8,6 +8,14 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = "__all__"
         
+    def validate(self, data):
+        title = data.get("title", None)
+        
+        if Post.objects.filter(title=title).exists():
+            raise serializers.ValidationError('이미 존재하는 게시글 입니다.')
+        
+        return data
+        
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
