@@ -22,7 +22,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'sanbo_RDS',
+        'NAME' : 'sanbosillok-db',
         'USER' : 'admin',
         'PASSWORD' : get_secret("DB_PASSWORD"),
         'HOST' : get_secret("DB_HOST"),
