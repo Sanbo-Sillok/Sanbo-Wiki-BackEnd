@@ -118,7 +118,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://sanbosillok.vercel.app",
     "https://sanbo-sillok.github.io/Sanbo-Sillok-FrontEnd-React/",
     "https://sanbo-sillok.github.io/Sanbo-Sillok-FrontEnd-React",
-    
+    "https://sanbo-sillok.github.io/",
+    "https://sanbo-sillok.github.io",       
 ]
 
 ROOT_URLCONF = 'config.urls'
