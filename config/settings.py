@@ -116,7 +116,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://172.30.1.30:3000",
     "https://sanbosillok.vercel.app",
-    "https://sanbo-sillok.github.io/Sanbo-Sillok-FrontEnd-React",
     "https://sanbo-sillok.github.io",       
 ]
 
